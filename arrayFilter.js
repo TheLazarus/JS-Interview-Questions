@@ -13,5 +13,3 @@ Array.prototype.myFilter = function (callbackFn, thisArg) {
 
   return filteredArray;
 };
-
-// let newArr = [1,2,3,4].myFilter((curr, index, arr) => {}, this)
