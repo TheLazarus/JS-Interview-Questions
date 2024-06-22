@@ -1,29 +1,31 @@
-function PubSub() {
-  this.subscribers = [];
+class PubSub {
+  constructor() {
+    this.subscribers = [];
+  }
+  addSubscriber(callback) {
+    if (typeof callback !== "function") {
+      throw new TypeError("Expected a function");
+    }
+    this.subscribers.push(callback);
+    return () => {
+      this.#removeSubscriber(callback);
+    };
+  }
+  #removeSubscriber(callback) {
+    if (typeof callback !== "function") {
+      throw new TypeError("Expected a function");
+    }
+    this.subscribers = this.subscribers.filter((sub) => sub !== callback);
+  }
+  publish(message) {
+    this.subscribers.forEach((subscriber) => {
+      subscriber(message);
+    });
+  }
 }
 
-PubSub.prototype.addSubscriber = function (callback) {
-  if (typeof callback !== "function") {
-    throw new TypeError("Expected a function");
-  }
-  this.subscribers.push(callback);
-  return () => {
-    this.removeSubscriber(callback);
-  };
-};
 
-PubSub.prototype.removeSubscriber = function (callback) {
-  if (typeof callback !== "function") {
-    throw new TypeError("Expected a function");
-  }
-  this.subscribers = this.subscribers.filter((sub) => sub !== callback);
-};
 
-PubSub.prototype.publish = function (message) {
-  this.subscribers.forEach((subscriber) => {
-    subscriber(message);
-  });
-};
 
 const pubsub = new PubSub();
 
