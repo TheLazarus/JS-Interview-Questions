@@ -1,43 +1,23 @@
 function LRUCache(size) {
   this.size = size;
-  this.internalCache = {};
+  this.cache = new Map();
 }
 
-LRUCache.prototype.add = function (key, value) {
-  this.internalCache[key] = {
-    value,
-    timestamp: new Date().getTime(),
-  };
-
-  console.log("Item added successfully");
-
-  if (Object.keys(this.internalCache).length > this.size) {
-    // Need to evict the least recently used timestamp
-    let max = -Infinity;
-    let keyToEvict = null;
-
-    for (let [key, value] of Object.entries(this.internalCache)) {
-      const { timestamp } = value || {};
-      const timeDiff = new Date().getTime() - timestamp;
-      if (timeDiff > max) {
-        max = timeDiff;
-        keyToEvict = key;
-      }
-    }
-
-    if (keyToEvict) {
-      delete this.internalCache[keyToEvict];
-    }
-  }
-};
-
 LRUCache.prototype.get = function (key) {
-  if (!this.internalCache[key]) {
-    console.info("Item not found in cache");
-    return;
-  }
+  let val = this.cache.get(key);
+  if (val === undefined) return -1;
 
-  return this.internalCache[key].value;
+  this.cache.delete(key);
+  this.cache.set(key, val);
+
+  return val;
 };
 
-let cache = new LRUCache(2);
+LRUCache.prototype.set = function (key, value) {
+  this.cache.delete(key);
+
+  if (this.cache.size === this.capacity) {
+    this.cache.delete(this.cache.keys().next().value);
+  }
+  this.cache.set(key, value);
+};
