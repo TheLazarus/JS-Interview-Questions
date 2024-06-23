@@ -23,14 +23,3 @@ function promiseAll(iterable) {
     }
   });
 }
-
-(async function () {
-  const p1 = new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(3);
-    }, 10);
-  });
-
-  const ans = await Promise.all([Promise.resolve(2), p1]);
-  console.log(ans);
-})();

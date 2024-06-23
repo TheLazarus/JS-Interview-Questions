@@ -1,5 +1,5 @@
 function LRUCache(size) {
-  this.size = size;
+  this.capacity = size;
   this.cache = new Map();
 }
 
