@@ -4,8 +4,6 @@
     return `[${arrayValues.join(',')}]`;
   }
 
-
-    
     if(typeof value === 'object' && value !== null) {
         const objectValues = Object.entries(value)
         .map(([key, value]) => `"${key}":${jsonStringify(value)}`)

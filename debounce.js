@@ -11,3 +11,19 @@ export default function debounce(func, wait) {
     }, wait);
   };
 }
+
+
+
+
+timer = null;
+
+
+
+if(timer === null) {
+  func.call(this, ...args);
+  timer = setTimeout(() => {
+    clearTimeout(timer);
+    timer = null;
+  }, 1000);
+
+}

@@ -20,4 +20,5 @@ function flatten(value) {
   return ans;
 }
 
+
 console.log(flatten([1, [2, [3, [4, [5]]]]]));
