@@ -4,12 +4,3 @@ Function.prototype.myBind = function (thisArg, ...argArray) {
   };
 };
 
-
-// let f = g.bind(this, arg1, arg2);
-
-// f(x, y);
-
-
-return (...args) => {
-  return this.call(thisArg, ...argArray, ..args);
-}
